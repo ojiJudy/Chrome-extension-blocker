@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Market Lens \u2014 Trading Companion",
+  "version": "1.5.1",
+  "minimum_chrome_version": "116",
+  "description": "TradingView side panel with trade planning, execution risk checks, candle analysis and optional Gemini research.",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*",
+    "https://*.tradingview.com/*",
+    "https://query1.finance.yahoo.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Market Lens"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "optional_host_permissions": [
+    "https://*.tradingview.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.tradingview.com/*"
+      ],
+      "js": [
+        "chart-observer.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
